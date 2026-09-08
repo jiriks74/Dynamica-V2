@@ -5,6 +5,7 @@
   "author": "",
   "private": false,
   "type": "module",
+  "packageManager": "pnpm@9.15.9",
   "license": "GPL-3.0-only",
   "scripts": {
     "build": "tsup",
@@ -50,6 +51,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/DynamicaBot/Dynamica-V2.git"
+    "url": "https://github.com/jiriks74/dynamica-v2.git"
   }
 }

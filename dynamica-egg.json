@@ -10,10 +10,10 @@
     "description": null,
     "features": null,
     "images": [
-        "ghcr.io/dynamicabot/dynamica-v2:latest-pterodactyl"
+        "ghcr.io/jiriks74/dynamica-v2:latest-pterodactyl"
     ],
     "file_denylist": [],
-    "startup": "pnpm start",
+    "startup": "node --enable-source-maps dist/main",
     "config": {
         "files": "{}",
         "startup": "{\r\n    \"done\": \"Bot logged in as\"\r\n}",

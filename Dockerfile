@@ -1,9 +1,13 @@
 # Base
-FROM node:21-alpine AS base
+FROM node:24-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN corepack enable && corepack install --global pnpm@9.15.9
 COPY . /app
+WORKDIR /app
+
+# Runtime
+FROM node:24-alpine AS runtime
 WORKDIR /app
 
 # Prod Dependencies
@@ -20,12 +24,13 @@ FROM scratch AS extract
 COPY --from=build /app/dist /dist
 
 # Pterodactyl Image
-FROM base as pterodactyl
+FROM runtime AS pterodactyl
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
+RUN node --check /app/dist/main.js
 
 ENV NODE_ENV="production"
-ENV DATABASE_URL "file:/home/container/dynamica/db.sqlite"
+ENV DATABASE_URL="file:/home/container/dynamica/db.sqlite"
 ARG VERSION
 ENV VERSION=$VERSION
 
@@ -41,16 +46,17 @@ COPY entrypoint.sh /entrypoint.sh
 CMD [ "/bin/sh", "/entrypoint.sh" ]
 
 # Default Image
-FROM base
+FROM runtime
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
+RUN node --check /app/dist/main.js
 
 ENV NODE_ENV="production"
-ENV DATABASE_URL "file:/app/config/db.sqlite"
+ENV DATABASE_URL="file:/app/config/db.sqlite"
 ARG VERSION
 ENV VERSION=$VERSION
 
 HEALTHCHECK  --interval=5m --timeout=3s \
     CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
 
-CMD [ "pnpm", "start" ]
+CMD [ "node", "--enable-source-maps", "dist/main" ]
