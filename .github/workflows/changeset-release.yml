@@ -7,7 +7,7 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 env:
-  IMAGE: ghcr.io/dynamicabot/dynamica-v2
+  IMAGE: ghcr.io/jiriks74/dynamica-v2
 
 permissions:
   packages: write
@@ -118,7 +118,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           push: true
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=ghcr.io/dynamicabot/dynamica-v2:latest
+          cache-from: type=registry,ref=${{ env.IMAGE }}:latest
       - name: Build Image
         uses: docker/build-push-action@v6
         with:

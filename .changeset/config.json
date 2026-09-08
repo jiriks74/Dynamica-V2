@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "dynamicabot/dynamica-v2"
+      "repo": "jiriks74/dynamica-v2"
     }
   ],
   "commit": true,
