@@ -1,5 +1,11 @@
 # dynamica-v2
 
+## 3.3.7
+
+### Patch Changes
+
+- [`ea3b181`](https://github.com/jiriks74/Dynamica-V2/commit/ea3b181cf17d5ad649dc647e0d387be3f459586c) Thanks [@jiriks74](https://github.com/jiriks74)! - Run production images directly with Node and update the build to a supported Node release with a pinned pnpm version.
+
 ## 3.3.6
 
 ### Patch Changes
