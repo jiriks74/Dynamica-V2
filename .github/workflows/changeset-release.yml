@@ -166,6 +166,7 @@ jobs:
           environment: "production"
           sourcemaps: "./dist/linux_amd64/dist"
           release: ${{ matrix.package.version }}
+          set_commits: skip
 
   deploy-docs:
     name: Build and Deploy Docs
