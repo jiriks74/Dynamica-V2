@@ -9,6 +9,8 @@ WORKDIR /app
 # Runtime
 FROM node:24-alpine AS runtime
 WORKDIR /app
+COPY drizzle /app/drizzle
+RUN test -f /app/drizzle/meta/_journal.json
 
 # Prod Dependencies
 FROM base AS prod-deps
